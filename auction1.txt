@@ -1,0 +1,13 @@
+country,player
+india,ms dhoni
+india,virat kohli
+india,rohith sharma
+india,ravindra jadeja
+india,kl rahul
+south africa,faf du plessiss
+south africa,ab de villiers
+west indies,dj bravo
+new zealand,mitchell santner
+west indies,chris gayle
+new zealand,kane williamson
+
