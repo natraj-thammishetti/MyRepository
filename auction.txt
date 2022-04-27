@@ -1,4 +1,3 @@
-country,player
 india,ms dhoni
 india,virat kohli
 india,rohith sharma
