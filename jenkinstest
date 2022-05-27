@@ -1,5 +1,10 @@
-class MyClass{
-  public static void main(String[] args){
-      System.out.println("Hello World");
-  }
-}
+pipeline {  
+    agent any  
+    stages {  
+            stage ('Build') {  
+                steps {  
+                        echo 'Running build phase...'  
+                }  
+            }  
+    }  
+}  
