@@ -1,5 +1,6 @@
 import boto3
-from datetime import datetime, timezone
+from datetime import datetime
+from datetime import timezone
 
 
 def instances_in_last_24_hours():
