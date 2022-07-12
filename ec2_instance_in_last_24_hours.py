@@ -6,7 +6,7 @@ from datetime import timezone
 def instances_in_last_24_hours():
     try:
         # Initializing ec2 client using boto3 module
-        ec2_resource = boto3.client("ec2",region_name='us-east-1')
+        ec2_resource = boto3.client("ec2",region_name='us-east-1',aws_access_key_id='AKIAV3IXMNAKJZ7SC56O',aws_secret_access_key='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')
         # describe_instance() method returns the dictionary that contains the details of ec2 instances
         instance_details = ec2_resource.describe_instances()["Reservations"]
         instances = {}
