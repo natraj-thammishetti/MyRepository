@@ -22,7 +22,7 @@ pipeline{
         }
         stage('Build'){
             steps{
-                sh 'python ec2_instance_in_last_24_hours.py'
+                sh 'python3 ec2_instance_in_last_24_hours.py'
             }
         }
     }
