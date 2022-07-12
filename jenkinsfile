@@ -1,0 +1,29 @@
+pipeline{
+    agent any
+    environment{
+        REPO_PATH   =   "https://github.com/natraj-thammishetti/MyRepository.git"
+	}
+    stages{
+        stage('Prerequisits'){
+            steps{
+                echo 'CheckOut'
+                checkout(
+                    [$class: 'GitSCM', 
+                    branches: [[name: '*/main']], 
+                    extensions: [],
+                    userRemoteConfigs: [
+                        [credentialsId: '29287757-4046-465f-900a-abe7488b4de5', 
+                        url: "$REPO_PATH"
+                        ]
+                    ]
+                    ]
+                )
+            }
+        }
+        stage('Build'){
+            steps{
+                sh 'python3 helloworld.py'
+            }
+        }
+    }
+}
