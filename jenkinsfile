@@ -23,7 +23,7 @@ pipeline{
         stage('Build'){
             steps{
                 sh '''
-		whoami
+		sudo su
 		python3 ec2_instance_in_last_24_hours.py
 		'''
             }
