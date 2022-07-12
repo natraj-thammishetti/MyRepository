@@ -23,9 +23,9 @@ pipeline{
         stage('Build'){
             steps{
                 sh '''
-		python3 ec2_instance_in_last_24_hours.py >> output.log
+		python3 ec2_instance_in_last_24_hours.py >> output1.log
 		'''
-		archiveArtifacts artifacts: "*.log"
+		archiveArtifacts artifacts: "output1.log"
             }
         }
     }
