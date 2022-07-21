@@ -42,10 +42,10 @@ post {
 	}
         failure {
             echo 'This will run only if failed'
-	    sh '''
-    	    rm -rf *.log
-	    rm -rf /tmp/$GIT_REPO
-	    '''
+// 	    sh '''
+//     	    rm -rf *.log
+// 	    rm -rf /tmp/$GIT_REPO
+// 	    '''
             emailext attachLog: true, attachmentsPattern: "*.log", body: 'The attached are the log files from ARCH Automated Build for EC2 Instance Count is failed', subject: 'ARCH QA EC2 Memory size check pipeline **Failed**', to: 'natrajthammishetti@gmail.com'
         }
     }
