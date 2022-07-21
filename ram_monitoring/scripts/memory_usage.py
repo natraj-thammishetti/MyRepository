@@ -7,9 +7,11 @@ import sys
 
 
 def get_ram_usage(region, key_name, pem_file_path, exclusion_list, scripts_path):
+    print("Hello")
     EC2 = boto3.client('ec2', region)
     ssh = paramiko.SSHClient()
     ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+    print("Hai")
     reservations = EC2.describe_instances()["Reservations"]
     print(reservations)
 #     path = pem_file_path
