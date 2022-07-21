@@ -1,9 +1,9 @@
 {
   "environment":"QA",
   "region":"us-east-1",
-  "key-name":"arch-qa-ssh",
-  "pem-file-path":"/tmp/arch-platform-monitoring/arch-qa-ssh.pem",
+  "key-name":"ec2_key",
+  "pem-file-path":"/tmp/MyRepository/qa/ec2_key.pem",
   "exclusion-list":[],
-  "scripts-path":"/tmp/arch-platform-monitoring/disk-usage-monitoring/scripts",
-  "recipients":"showryaj.jakkam@abbvie.com"
+  "scripts-path":"/tmp/MyRepository/ram_monitoring/scripts",
+  "recipients":"natraj.thammishetti@gmail.com"
 }
