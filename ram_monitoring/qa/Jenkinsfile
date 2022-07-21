@@ -1,33 +1,28 @@
 pipeline{
     agent {
-        label 'ARCH-QA-SCC-AWS'
+        label 'MY_QA'
      }
      environment {
-	GIT_TOKEN   	= credentials('arch-qa-git-token')
-	GIT_LOC     	= 'arch-qa'
-	GIT_BRANCH 	= 'prework'
-	GIT_REPO 	= 'arch-platform-monitoring'
-	CONF_PATH 	= '/tmp/arch-platform-monitoring/disk-usage-monitoring/qa'
-	SCRIPTS_PATH 	= '/tmp/arch-platform-monitoring/disk-usage-monitoring/scripts'
+	URL		= 'https://github.com/natraj-thammishetti'
+	GIT_BRANCH 	= 'main'
+	GIT_REPO 	= 'MyRepository'
+	CONF_PATH 	= '/tmp/MyRepository/ram-monitoring/qa'
+	SCRIPTS_PATH 	= '/tmp/MyRepository/ram-monitoring/scripts'
      }
      stages{
 	stage('prerequisite'){
 	    steps{
 		sh '''
 		rm -rf /tmp/${GIT_REPO}
-		git clone -b ${GIT_BRANCH} https://${GIT_TOKEN}@pig.abbvienet.com/${GIT_LOC}/${GIT_REPO} /tmp/${GIT_REPO}
+		git clone -b ${GIT_BRANCH} ${URL}/${GIT_REPO} /tmp/${GIT_REPO}
 		'''
-		withCredentials([file(credentialsId: 'arch-qa-ssh', variable: 'arch_qa_ssh')]) {
-                sh '''
-                cp ${arch_qa_ssh} /tmp/${GIT_REPO}/
-                '''
                 }
 	     }
 	 }
-	 stage('ebs-volume-size-check'){
+	 stage('ram-usage-monitoring'){
 	    steps{
 		sh """
-		python3 ${SCRIPTS_PATH}/disk-usage.py ${CONF_PATH}/variables.json > debug.log
+		python3 ${SCRIPTS_PATH}/memory_usage.py ${CONF_PATH}/variables.json > debug.log
 		grep "WARNING" debug.log > warning.log || true
 		grep "CRITICAL" debug.log > critical.log || true
 		python3 ${SCRIPTS_PATH}/mail.py ${CONF_PATH}/variables.json
@@ -54,7 +49,7 @@ post {
     	    rm -rf *.log
 	    rm -rf /tmp/$GIT_REPO
 	    '''
-            emailext attachLog: true, attachmentsPattern: "*.log", body: 'The attached are the log files from ARCH Automated Build for EC2 Instance Count is failed', subject: 'ARCH QA EC2 Instance Disk size check pipeline **Failed**', to: 'showryaj.jakkam@abbvie.com'
+            emailext attachLog: true, attachmentsPattern: "*.log", body: 'The attached are the log files from ARCH Automated Build for EC2 Instance Count is failed', subject: 'ARCH QA EC2 Memory size check pipeline **Failed**', to: 'natraj.thammishetti@gmail.com'
         }
         
     }
