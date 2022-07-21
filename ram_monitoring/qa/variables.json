@@ -5,5 +5,5 @@
   "pem-file-path":"/tmp/MyRepository/qa/ec2_key.pem",
   "exclusion-list":[],
   "scripts-path":"/tmp/MyRepository/ram_monitoring/scripts",
-  "recipients":"natraj.thammishetti@gmail.com"
+  "recipients":"natrajthammishetti@gmail.com"
 }
