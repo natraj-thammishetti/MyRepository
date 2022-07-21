@@ -6,8 +6,8 @@ pipeline{
 	URL		= 'https://github.com/natraj-thammishetti'
 	GIT_BRANCH 	= 'main'
 	GIT_REPO 	= 'MyRepository'
-	CONF_PATH 	= '/tmp/MyRepository/ram-monitoring/qa'
-	SCRIPTS_PATH 	= '/tmp/MyRepository/ram-monitoring/scripts'
+	CONF_PATH 	= '/tmp/MyRepository/ram_monitoring/qa'
+	SCRIPTS_PATH 	= '/tmp/MyRepository/ram_monitoring/scripts'
      }
      stages{
 	stage('prerequisite'){
