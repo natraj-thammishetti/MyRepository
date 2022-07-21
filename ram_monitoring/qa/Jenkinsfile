@@ -1,0 +1,62 @@
+pipeline{
+    agent {
+        label 'ARCH-QA-SCC-AWS'
+     }
+     environment {
+	GIT_TOKEN   	= credentials('arch-qa-git-token')
+	GIT_LOC     	= 'arch-qa'
+	GIT_BRANCH 	= 'prework'
+	GIT_REPO 	= 'arch-platform-monitoring'
+	CONF_PATH 	= '/tmp/arch-platform-monitoring/disk-usage-monitoring/qa'
+	SCRIPTS_PATH 	= '/tmp/arch-platform-monitoring/disk-usage-monitoring/scripts'
+     }
+     stages{
+	stage('prerequisite'){
+	    steps{
+		sh '''
+		rm -rf /tmp/${GIT_REPO}
+		git clone -b ${GIT_BRANCH} https://${GIT_TOKEN}@pig.abbvienet.com/${GIT_LOC}/${GIT_REPO} /tmp/${GIT_REPO}
+		'''
+		withCredentials([file(credentialsId: 'arch-qa-ssh', variable: 'arch_qa_ssh')]) {
+                sh '''
+                cp ${arch_qa_ssh} /tmp/${GIT_REPO}/
+                '''
+                }
+	     }
+	 }
+	 stage('ebs-volume-size-check'){
+	    steps{
+		sh """
+		python3 ${SCRIPTS_PATH}/disk-usage.py ${CONF_PATH}/variables.json > debug.log
+		grep "WARNING" debug.log > warning.log || true
+		grep "CRITICAL" debug.log > critical.log || true
+		python3 ${SCRIPTS_PATH}/mail.py ${CONF_PATH}/variables.json
+		"""
+	 }
+     }
+     }
+
+post {
+	always {
+            echo 'This will always run'
+	    archiveArtifacts artifacts: "*.log"
+        }
+        success {
+            echo 'This will run only if successful'
+            sh '''
+    	    rm -rf *.log
+	    rm -rf /tmp/$GIT_REPO
+	    '''  
+	}
+        failure {
+            echo 'This will run only if failed'
+	    sh '''
+    	    rm -rf *.log
+	    rm -rf /tmp/$GIT_REPO
+	    '''
+            emailext attachLog: true, attachmentsPattern: "*.log", body: 'The attached are the log files from ARCH Automated Build for EC2 Instance Count is failed', subject: 'ARCH QA EC2 Instance Disk size check pipeline **Failed**', to: 'showryaj.jakkam@abbvie.com'
+        }
+        
+    }
+
+}
