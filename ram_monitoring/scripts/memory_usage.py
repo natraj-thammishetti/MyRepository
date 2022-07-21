@@ -14,7 +14,7 @@ def get_ram_usage(region, key_name, pem_file_path, exclusion_list, scripts_path)
     reservations = EC2.describe_instances(Filters=[
         {
             "Name": "instance-state-name",
-            "Values": ["running"]
+            "Values": ["running"],
         }
     ]).get("Reservations")
     path = pem_file_path
