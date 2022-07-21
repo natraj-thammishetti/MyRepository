@@ -18,6 +18,7 @@ def get_ram_usage(region, key_name, pem_file_path, exclusion_list, scripts_path)
         }
     ]).get("Reservations")
 	print(reservations)
+	print(reservations)
     path = pem_file_path
     privkey = paramiko.RSAKey.from_private_key_file(path)
     for reservation in reservations:
