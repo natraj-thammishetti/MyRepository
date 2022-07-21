@@ -7,7 +7,7 @@ from email.mime.image import MIMEImage
 from email.mime.application import MIMEApplication
 
 def send_mail(filename,message,recipients):
-    sender_email = "no-reply@abbvie.com"
+    sender_email = "natrajthammishetti@gmail.com"
     body = open(filename).read()
     msg = MIMEMultipart()
     delim = ","
