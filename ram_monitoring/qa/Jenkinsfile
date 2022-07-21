@@ -17,8 +17,7 @@ pipeline{
 		git clone -b ${GIT_BRANCH} ${URL}/${GIT_REPO} /tmp/${GIT_REPO}
 		'''
                 }
-	     }
-	 }
+	}
 	 stage('ram-usage-monitoring'){
 	    steps{
 		sh """
@@ -27,8 +26,8 @@ pipeline{
 		grep "CRITICAL" debug.log > critical.log || true
 		python3 ${SCRIPTS_PATH}/mail.py ${CONF_PATH}/variables.json
 		"""
-	 }
-     }
+	    }
+     	}
      }
 
 post {
@@ -51,7 +50,5 @@ post {
 	    '''
             emailext attachLog: true, attachmentsPattern: "*.log", body: 'The attached are the log files from ARCH Automated Build for EC2 Instance Count is failed', subject: 'ARCH QA EC2 Memory size check pipeline **Failed**', to: 'natrajthammishetti@gmail.com'
         }
-        
     }
-
 }
