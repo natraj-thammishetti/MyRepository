@@ -1,0 +1,9 @@
+{
+  "environment":"QA",
+  "region":"us-east-1",
+  "key-name":"arch-qa-ssh",
+  "pem-file-path":"/tmp/arch-platform-monitoring/arch-qa-ssh.pem",
+  "exclusion-list":[],
+  "scripts-path":"/tmp/arch-platform-monitoring/disk-usage-monitoring/scripts",
+  "recipients":"showryaj.jakkam@abbvie.com"
+}
