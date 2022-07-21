@@ -3,7 +3,7 @@ pipeline{
         label 'MY_QA'
      }
      environment {
-	URL		= 'https://github.com/natraj-thammishetti'
+	REPO_URL	= 'https://github.com/natraj-thammishetti'
 	GIT_BRANCH 	= 'main'
 	GIT_REPO 	= 'MyRepository'
 	CONF_PATH 	= '/tmp/MyRepository/ram_monitoring/qa'
@@ -14,7 +14,7 @@ pipeline{
 	    steps{
 		sh '''
 		rm -rf /tmp/${GIT_REPO}
-		git clone -b ${GIT_BRANCH} ${URL}/${GIT_REPO} /tmp/${GIT_REPO}
+		git clone -b ${GIT_BRANCH} ${REPO_URL}/${GIT_REPO} /tmp/${GIT_REPO}
 		'''
                 }
 	}
