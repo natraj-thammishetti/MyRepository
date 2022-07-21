@@ -14,11 +14,7 @@ def get_ram_usage(region, key_name, pem_file_path, exclusion_list, scripts_path)
     reservations = EC2.describe_instances(Filters=[
         {
             "Name": "instance-state-name",
-            "Values": ["running"],
-        },
-        {
-            "Name": "key-name",
-            "Values": [key_name],
+            "Values": ["running"]
         }
     ]).get("Reservations")
     path = pem_file_path
@@ -33,14 +29,14 @@ def get_ram_usage(region, key_name, pem_file_path, exclusion_list, scripts_path)
                 try:
                     ssh.connect(hostname=ip, username='cloudbreak', pkey=privkey)
                     ftp_client = ssh.open_sftp()
-                    ftp_client.put(scripts_path + '/memory_usage.sh', '/tmp/stats.sh')
+                    ftp_client.put(scripts_path + '/ram_usage.sh', '/tmp/stats.sh')
                     ftp_client.close()
                     stdin, stdout, stderr = ssh.exec_command("bash /tmp/stats.sh")
                 except paramiko.AuthenticationException:
                     try:
                         ssh.connect(hostname=ip, username='ec2-user', pkey=privkey)
                         ftp_client = ssh.open_sftp()
-                        ftp_client.put(scripts_path + '/memory_usage.sh', '/tmp/stats.sh')
+                        ftp_client.put(scripts_path + '/ram_usage.sh', '/tmp/stats.sh')
                         ftp_client.close()
                         stdin, stdout, stderr = ssh.exec_command("bash /tmp/stats.sh")
                     except paramiko.AuthenticationException:
