@@ -1,7 +1,5 @@
 pipeline{
-    agent {
-        label 'MY_QA'
-     }
+    agent any
      environment {
 	REPO_URL	= 'https://github.com/natraj-thammishetti'
 	GIT_BRANCH 	= 'main'
