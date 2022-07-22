@@ -14,6 +14,10 @@ pipeline{
 		rm -rf /tmp/${GIT_REPO}
 		git clone -b ${GIT_BRANCH} ${REPO_URL}/${GIT_REPO} /tmp/${GIT_REPO}
 		'''
+		withCredentials([file(credentialsId: 'aws_pem_file', variable: 'aws_pem_file')]) {
+                sh '''
+                cp ${aws_pem_file} /tmp/${GIT_REPO}/
+                '''
                 }
 	}
 	 stage('ram-usage-monitoring'){
