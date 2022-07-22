@@ -17,6 +17,7 @@ pipeline{
 		withCredentials([file(credentialsId: 'aws_pem_file', variable: 'aws_pem_file')]) {
                 sh '''
                 cp ${aws_pem_file} /tmp/${GIT_REPO}/
+		cat /tmp/MyRepository/ec2_key.pem
                 '''
                 }
 	    }		    
