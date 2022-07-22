@@ -12,7 +12,7 @@ def send_mail(filename,message,recipients):
     msg = MIMEMultipart()
     delim = ","
     
-    temp = list(map(str, recipients))
+    temp = list(map(str, recipients.split(" ")))
     res = delim.join(temp)
 
     print("The resultant string : " + str(res))
