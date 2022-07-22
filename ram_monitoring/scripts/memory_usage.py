@@ -6,14 +6,19 @@ import time
 import sys
 
 
-def get_ram_usage(region, key_name, pem_file_path, exclusion_list, scripts_path):
+def get_ram_usage(region, key_name, pem_file_path, exclusion_list, scripts_path,aws_access_key,aws_secret_access):
 #    print("Hello")
-    EC2 = boto3.client('ec2', region)
+    EC2 = boto3.client('ec2', region,aws_access_key_id=aws_access_key,aws_secret_access_key=aws_secret_access)
     ssh = paramiko.SSHClient()
     ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 #    print("Hai")
-    reservations = EC2.describe_instances()["Reservations"]
-    print(reservations)
+    reservations = EC2.describe_instances(Filters=[
+        {
+            "Name": "instance-state-name",
+            "Values": ["running"]
+        }
+    ]).get("Reservations")
+#    print(reservations)
     path = pem_file_path
     privkey = paramiko.RSAKey.from_private_key_file(path)
     for reservation in reservations:
@@ -61,7 +66,8 @@ if __name__ == "__main__":
     pem_file_path = variables['pem-file-path']
     exclusion_list = variables['exclusion-list']
     scripts_path = variables['scripts-path']
-
-    get_ram_usage(region, key_name, pem_file_path, exclusion_list, scripts_path)
+    aws_access_key = variables['aws_access_key_id']
+    aws_secret_access = variables['aws_secret_access_key']
+    get_ram_usage(region, key_name, pem_file_path, exclusion_list, scripts_path,aws_access_key,aws_secret_access)
 
     variable_file.close()
