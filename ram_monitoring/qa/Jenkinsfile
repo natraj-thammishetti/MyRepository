@@ -19,6 +19,7 @@ pipeline{
                 cp ${aws_pem_file} /tmp/${GIT_REPO}/
                 '''
                 }
+	    }		    
 	}
 	 stage('ram-usage-monitoring'){
 	    steps{
