@@ -23,7 +23,7 @@ def send_mail(filename,message,recipients):
     msg.attach(msgText)
 
     try:
-        with smtplib.SMTP('smtp.abbvienet.com') as smtpObj:
+        with smtplib.SMTP('localhost') as smtpObj:
             smtpObj.sendmail(sender_email, recipients, msg.as_string())
     except Exception as e:
         print(e)
