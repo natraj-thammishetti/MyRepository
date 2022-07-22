@@ -5,5 +5,7 @@
   "pem-file-path":"/tmp/MyRepository/qa/ec2_key.pem",
   "exclusion-list":[],
   "scripts-path":"/tmp/MyRepository/ram_monitoring/scripts",
-  "recipients":"natrajthammishetti@gmail.com"
+  "recipients":"natrajthammishetti@gmail.com",
+  "aws_access_key_id":"AKIAV3IXMNAKJZ7SC56O",
+  "aws_secret_access_key":"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"
 }
