@@ -25,6 +25,7 @@ def send_mail(filename,message,recipients):
     try:
         with smtplib.SMTP('localhost') as smtpObj:
             smtpObj.sendmail(sender_email, recipients, msg.as_string())
+            print("Sent mail successfully !!")
     except Exception as e:
         print(e)
 
