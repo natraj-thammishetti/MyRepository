@@ -2,6 +2,7 @@ pipeline{
     agent any
     environment{
         REPO_PATH   =   "https://github.com/natraj-thammishetti/MyRepository.git"
+	
 	}
     stages{
         stage('Prerequisits'){
@@ -22,9 +23,7 @@ pipeline{
         }
         stage('Build'){
             steps{
-                sh '''
-		python3 helloworld.py > output1.log
-		'''
+                sh helloworld.sh > output1.log
 		archiveArtifacts artifacts: "output1.log"
             }
         }
